@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Produtos</h1>
+
+<br>
+
+<div class="cards">
+
+    <div class="card" style="background:#FFA0B5;">
+        <h2>R$ {{ "%.2f"|format(faturamento) }}</h2>
+        <p>Faturamento</p>
+    </div>
+
+    <div class="card" style="background:#93FFF5;">
+        <h2>{{ total_vendas }}</h2>
+        <p>Total de Vendas</p>
+    </div>
+
+    <div class="card" style="background:#9586E8; color:white;">
+        <h2>{{ produto_top }}</h2>
+        <p>Produto Mais Vendido</p>
+    </div>
+
+</div>
+
+<br>
+
+<div class="table">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for produto in produtos %}
+
+            <tr>
+
+                <td>{{ produto.id }}</td>
+
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.quantidade }}</td>
+
+                <td>
+                    R$ {{ "%.2f"|format(produto.preco) }}
+                </td>
+
+                <td>
+
+                    <a
+                        href="/excluir_produto/{{ produto.id }}"
+                        class="btn btn-red"
+                        onclick="return confirm('Deseja excluir este produto?')"
+                    >
+                        Excluir
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

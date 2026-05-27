@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Clientes</h1>
+
+<br>
+
+<div class="form-box">
+
+    <form method="POST" action="/clientes">
+
+        <label>Nome</label>
+        <input type="text" name="nome" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <button class="btn btn-green">
+            Salvar Cliente
+        </button>
+
+    </form>
+
+</div>
+
+<br><br>
+
+<div class="table">
+
+    <table>
+
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+
+        {% for cliente in clientes %}
+
+        <tr>
+
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.email }}</td>
+
+            <td>
+                <a href="/cliente/{{ cliente.id }}" class="btn btn-blue">
+                    Ver histórico
+                </a>
+                <a href="/excluir_cliente/{{ cliente.id }}" class="btn btn-red"
+                   onclick="return confirm('Deseja excluir este cliente? Todas as vendas serão removidas.')">
+                   Excluir
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock %}

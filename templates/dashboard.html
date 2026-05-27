@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<br>
+
+<div style="background:white; padding:20px; border-radius:20px;">
+    <canvas id="grafico" height="100"></canvas>
+</div>
+
+<script>
+
+    // Conecta no Socket.IO
+    const socket = io();
+
+    // Pega o canvas
+    const ctx = document.getElementById('grafico').getContext('2d');
+
+    // Cria o gráfico
+    const grafico = new Chart(ctx, {
+        type: 'bar',
+
+        data: {
+            labels: {{ nomes|tojson }},
+
+            datasets: [{
+                label: 'Quantidade de Vendas',
+
+                data: {{ totais|tojson }},
+
+                backgroundColor: [
+                    '#93FFF5',
+                    '#FFA0B5',
+                    '#E9FFAF',
+                    '#9586E8',
+                    '#C5F2E0'
+                ],
+
+                borderRadius: 10,
+                borderWidth: 1
+            }]
+        },
+
+        options: {
+            responsive: true,
+
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Atualiza automaticamente quando houver nova venda
+    socket.on("atualizar_grafico", () => {
+        location.reload();
+    });
+
+</script>
+
+{% endblock %}

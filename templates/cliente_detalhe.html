@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Cliente: {{ cliente.nome }}</h1>
+
+<br>
+
+<!-- CARDS -->
+<div class="cards">
+
+    <div class="card" style="background:#93FFF5;">
+        <h2>{{ total_compras }}</h2>
+        <p>Total de Compras</p>
+    </div>
+
+    <div class="card" style="background:#FFA0B5;">
+        <h2>R$ {{ "%.2f"|format(total_gasto) }}</h2>
+        <p>Total Gasto</p>
+    </div>
+
+</div>
+
+<br>
+
+<!-- HISTÓRICO DE COMPRAS -->
+<div class="table">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID Venda</th>
+                <th>Data</th>
+                <th>Valor Total</th>
+                <th>Produto</th>
+                <th>Qtd</th>
+                <th>Valor Unit</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for venda in vendas %}
+
+            <tr>
+                <td>#{{ venda.venda_id }}</td>
+                <td>{{ venda.data_venda }}</td>
+                <td>R$ {{ "%.2f"|format(venda.valor_total) }}</td>
+                <td>
+                    {{ venda.produto_id }} - {{ venda.produto_nome }}
+                </td>
+                <td>
+                    {{ venda.qtd }}
+                </td>
+                <td>
+                    R$ {{ "%.2f"|format(venda.preco_unitario) }}
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

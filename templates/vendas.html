@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Registrar Venda</h1>
+
+<br>
+
+<div class="form-box">
+
+<form method="POST">
+
+    <!-- CLIENTE -->
+    <label>Cliente</label>
+
+    <select name="cliente_id" required>
+        {% for cliente in clientes %}
+            <option value="{{ cliente.id }}">
+                {{ cliente.nome }}
+            </option>
+        {% endfor %}
+    </select>
+
+    
+
+    <!-- ITENS DA VENDA -->
+    <div id="itens-container">
+
+        <div class="item-venda">
+
+            <label>Produto</label>
+
+            <select name="produto_id[]" required>
+                {% for produto in produtos %}
+                    <option value="{{ produto.id }}">
+                        {{ produto.nome }} - Estoque: {{ produto.quantidade }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label>Quantidade</label>
+
+            <input
+                type="number"
+                name="qtd[]"
+                min="1"
+                value="1"
+                required
+            >
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- BOTÃO ADICIONAR ITEM -->
+    <button
+        type="button"
+        class="btn btn-blue"
+        onclick="adicionarItem()"
+    >
+        + Adicionar Produto
+    </button>
+
+    <br><br>
+
+    <!-- BOTÃO FINAL -->
+    <button class="btn btn-green">
+        Registrar Venda
+    </button>
+
+    
+
+</form>
+
+</div>
+
+<script>
+
+function adicionarItem() {
+
+    let container = document.getElementById('itens-container');
+
+    let novoItem = document.querySelector('.item-venda').cloneNode(true);
+
+    // limpa quantidade
+    novoItem.querySelector('input').value = 1;
+
+    container.appendChild(novoItem);
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Cadastrar Produto</h1>
+
+<br>
+
+<div class="form-box">
+
+<form method="POST">
+
+    <label>Nome do Produto</label>
+    <input type="text" name="nome">
+
+    <label>Preço</label>
+    <input type="number" step="0.01" name="preco">
+
+    <label>Quantidade</label>
+    <input type="number" name="quantidade">
+
+    <button class="btn btn-green">
+        Cadastrar
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}
